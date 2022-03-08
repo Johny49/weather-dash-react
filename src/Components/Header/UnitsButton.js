@@ -23,7 +23,7 @@ const UnitsButton = () => {
 
   return (
     <Button variant="primary" onClick={setUnitsHandler}>
-      {unitType}
+      {unitType === "imperial" ? "°F" : "°C"}
     </Button>
   );
 };
