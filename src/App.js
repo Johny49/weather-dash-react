@@ -1,13 +1,18 @@
+import { useCallback, useState } from "react";
 import Header from "./Components/Header/Header";
 import WeatherContainer from "./Components/WeatherContainer/WeatherContainer";
 import "./App.css";
+import LocationSidebar from "./Components/LocationSidebar/LocationSidebar";
 
 function App() {
-  const fetchLocationHandler = async () => {
+  const [weatherData, setWeatherData] = useState({});
+
+  const fetchLocationHandler = useCallback(async (enteredLocation) => {
     let apiUrl =
       "https://api.openweathermap.org/geo/1.0/direct?q=" +
-      "Dublin" +
+      `${enteredLocation}` +
       "&limit=1&appid=858d2ac1d226880ff65be3ab6336fd05";
+    console.log(apiUrl);
 
     try {
       const response = await fetch(apiUrl);
@@ -27,7 +32,7 @@ function App() {
     } catch (error) {
       console.log(error.message);
     }
-  };
+  }, []);
 
   const getWeatherData = async (lat, lon, loc) => {
     let unitType = localStorage.getItem("saved-units" || "imperial");
@@ -37,6 +42,7 @@ function App() {
       "&lon=" +
       lon +
       "&units=" +
+      "&exclude=minutely,hourly,alerts" +
       unitType +
       "&appid=858d2ac1d226880ff65be3ab6336fd05";
 
@@ -47,7 +53,8 @@ function App() {
       }
 
       const data = await response.json();
-      console.log(data);
+      setWeatherData(data);
+      return { loc, data };
     } catch (error) {
       console.log(error.message);
     }
@@ -56,8 +63,12 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <button onClick={fetchLocationHandler}>GetLoc</button>
-      <WeatherContainer />
+      <div className="container-fluid">
+        <div className="row py-4">
+          <LocationSidebar updateLocation={fetchLocationHandler} />
+          <WeatherContainer weatherData={weatherData} />
+        </div>
+      </div>
     </div>
   );
 }
