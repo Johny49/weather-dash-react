@@ -1,18 +1,41 @@
 import { useCallback, useState } from "react";
 import Header from "./Components/Header/Header";
 import WeatherContainer from "./Components/WeatherContainer/WeatherContainer";
-import "./App.css";
 import LocationSidebar from "./Components/LocationSidebar/LocationSidebar";
+import "./App.css";
 
 function App() {
-  const [weatherData, setWeatherData] = useState({});
+  const [returnedLoc, setReturnedLoc] = useState("");
+  const [weatherData, setWeatherData] = useState({
+    current: {
+      dt: "",
+      sunrise: "",
+      sunset: "",
+      temp: "",
+      feels_like: "",
+      pressure: "",
+      humidity: 0,
+      dew_point: "",
+      uvi: "",
+      wind_speed: "",
+      wind_deg: "",
+      weather: [
+        {
+          id: "",
+          main: "",
+          description: "",
+          icon: "",
+        },
+      ],
+    },
+    daily: [],
+  });
 
   const fetchLocationHandler = useCallback(async (enteredLocation) => {
     let apiUrl =
       "https://api.openweathermap.org/geo/1.0/direct?q=" +
       `${enteredLocation}` +
       "&limit=1&appid=858d2ac1d226880ff65be3ab6336fd05";
-    console.log(apiUrl);
 
     try {
       const response = await fetch(apiUrl);
@@ -22,10 +45,14 @@ function App() {
 
       const data = await response.json();
       if (data.length !== 0) {
+        // store location name
+        setReturnedLoc(data[0].name);
+
+        // use lat & lon for call to retrieve weather
         const lat = data[0].lat;
         const lon = data[0].lon;
-        const loc = data[0].name;
-        getWeatherData(lat, lon, loc);
+
+        getWeatherData(lat, lon);
       } else {
         alert("Unable to retrieve location");
       }
@@ -34,7 +61,7 @@ function App() {
     }
   }, []);
 
-  const getWeatherData = async (lat, lon, loc) => {
+  const getWeatherData = async (lat, lon) => {
     let unitType = localStorage.getItem("saved-units" || "imperial");
     let apiUrl =
       "https://api.openweathermap.org/data/2.5/onecall?lat=" +
@@ -42,8 +69,8 @@ function App() {
       "&lon=" +
       lon +
       "&units=" +
-      "&exclude=minutely,hourly,alerts" +
       unitType +
+      "&exclude=minutely,hourly,alerts" +
       "&appid=858d2ac1d226880ff65be3ab6336fd05";
 
     try {
@@ -52,9 +79,9 @@ function App() {
         throw new Error("Error: " + response.statusText);
       }
 
-      const data = await response.json();
-      setWeatherData(data);
-      return { loc, data };
+      const weatherData = await response.json();
+      setWeatherData(weatherData);
+      // return { loc, data: weatherData };
     } catch (error) {
       console.log(error.message);
     }
@@ -66,7 +93,7 @@ function App() {
       <div className="container-fluid">
         <div className="row py-4">
           <LocationSidebar updateLocation={fetchLocationHandler} />
-          <WeatherContainer weatherData={weatherData} />
+          <WeatherContainer weatherData={weatherData} location={returnedLoc} />
         </div>
       </div>
     </div>

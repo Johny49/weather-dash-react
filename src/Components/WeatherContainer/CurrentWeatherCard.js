@@ -2,24 +2,28 @@ import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
 
 const CurrentWeatherCard = (props) => {
+  const current = props.weatherData.current;
+  let weatherIcon = ""; //TODO: add placeholder img
+  let iconAlt = "";
+
+  if (current.weather[0].icon !== "") {
+    weatherIcon = `https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`;
+    iconAlt = current.weather[0].description;
+  }
+
   return (
     <Card>
       <Card.Header>
-        <Card.Title>City Date</Card.Title>
-        <Image
-          fluid
-          src="https://openweathermap.org/img/wn/10d@2x.png"
-          alt={"description of icon"}
-        />
+        <Card.Title>{props.location} Date</Card.Title>
+        <Image fluid src={weatherIcon} alt={iconAlt} />
       </Card.Header>
       <Card.Body>
-        <Card.Subtitle>Temp:</Card.Subtitle>
-        <Card.Subtitle>Low: </Card.Subtitle>
-        <Card.Subtitle>High: </Card.Subtitle>
-        <Card.Subtitle>Wind: </Card.Subtitle>
-        <Card.Subtitle>Humidity: </Card.Subtitle>
-        <Card.Subtitle>UV: </Card.Subtitle>
-        <Card.Text>Details?</Card.Text>
+        <Card.Subtitle>Temp: {Math.round(current.temp)}</Card.Subtitle>
+        <Card.Subtitle>Feels Like: {current.feelsLike}</Card.Subtitle>
+        <Card.Subtitle>Wind: {current.wind_speed}</Card.Subtitle>
+        <Card.Subtitle>Humidity: {current.humidity}</Card.Subtitle>
+        <Card.Subtitle>UV: {current.uvi}</Card.Subtitle>
+        <Card.Text>{current.weather[0].description}</Card.Text>
       </Card.Body>
     </Card>
   );
