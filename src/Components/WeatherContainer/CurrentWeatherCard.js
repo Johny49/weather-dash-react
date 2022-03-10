@@ -1,8 +1,10 @@
 import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
+import configDate from "../../Utils/DateConvert";
 
 const CurrentWeatherCard = (props) => {
-  const current = props.weatherData.current;
+  let current = props.weatherData.current;
+  let displayDate = configDate(current.dt);
   let weatherIcon = ""; //TODO: add placeholder img
   let iconAlt = "";
 
@@ -14,7 +16,8 @@ const CurrentWeatherCard = (props) => {
   return (
     <Card>
       <Card.Header>
-        <Card.Title>{props.location} Date</Card.Title>
+        <Card.Title>{props.location}</Card.Title>
+        <Card.Title>{displayDate}</Card.Title>
         <Image fluid src={weatherIcon} alt={iconAlt} />
       </Card.Header>
       <Card.Body>
