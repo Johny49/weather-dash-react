@@ -4,7 +4,6 @@ const configDate = (unixTimestamp) => {
   //convert Unix timestamp to js Date format if not ""
   if (unixTimestamp !== "") {
     date = new Date(unixTimestamp * 1000);
-    console.log("not empty date string");
   }
 
   let weekdayOutput = date.toLocaleString("default", { weekday: "long" });
