@@ -16,7 +16,11 @@ const LocationSearchForm = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    props.onLocationSubmit(enteredLocation);
+    if (enteredLocation !== "") {
+      props.onLocationSubmit(enteredLocation);
+    } else {
+      alert("Please Enter a Location"); //TODO: rework to display without alert
+    }
   };
   return (
     <Form onSubmit={submitHandler}>
