@@ -12,11 +12,9 @@ const LocationSidebar = (props) => {
     // check for duplicate and add location if unique; if exists already, move to top of list
     if (savedLocations.includes(loc)) {
       const index = savedLocations.indexOf(loc);
-      setSavedLocations(
-        savedLocations.push(savedLocations.splice(index, 1)[0])
-      );
+      savedLocations.unshift(savedLocations.splice(index, 1));
     } else {
-      savedLocations.push(loc);
+      savedLocations.unshift(loc);
     }
     // save to localStorage
     localStorage.setItem("saved-locations", JSON.stringify(savedLocations));

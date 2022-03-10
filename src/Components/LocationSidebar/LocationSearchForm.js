@@ -18,6 +18,7 @@ const LocationSearchForm = (props) => {
 
     if (enteredLocation !== "") {
       props.onLocationSubmit(enteredLocation);
+      setEnteredLocation("");
     } else {
       alert("Please Enter a Location"); //TODO: rework to display without alert
     }

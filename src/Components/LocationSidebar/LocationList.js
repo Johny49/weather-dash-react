@@ -1,9 +1,11 @@
 import ListGroup from "react-bootstrap/ListGroup";
 
 const LocationList = (props) => {
+  const mapList = props.savedLocs.reverse();
+
   return (
     <ListGroup className="my-5">
-      {props.savedLocs.map((loc) => (
+      {mapList.map((loc) => (
         <ListGroup.Item key={loc}>{loc}</ListGroup.Item>
       ))}
     </ListGroup>
