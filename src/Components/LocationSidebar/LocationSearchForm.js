@@ -1,7 +1,10 @@
 import { useState } from "react";
+// Boostrap Components
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+// Utils
 import toTitleCase from "../../Utils/ToTitleCase";
+
 const LocationSearchForm = (props) => {
   const [enteredLocation, setEnteredLocation] = useState("");
 
@@ -19,7 +22,7 @@ const LocationSearchForm = (props) => {
       props.onLocationSubmit(enteredLocation);
       setEnteredLocation("");
     } else {
-      alert("Please Enter a Location"); //TODO: rework to display without alert
+      alert("Please Enter a Location");
     }
   };
 

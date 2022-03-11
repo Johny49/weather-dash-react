@@ -85,7 +85,6 @@ function App() {
 
       const weatherData = await response.json();
       setWeatherData(weatherData);
-      // return { loc, data: weatherData };
     } catch (error) {
       console.log(error.message);
     }

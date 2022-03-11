@@ -1,4 +1,5 @@
 import { useState } from "react";
+// Components
 import LocationList from "./LocationList";
 import LocationSearchForm from "./LocationSearchForm";
 import "./LocationSidebar.css";
@@ -30,7 +31,10 @@ const LocationSidebar = (props) => {
       <aside className="col-sm-12 col-lg-2 p-3 bg-light">
         <LocationSearchForm onLocationSubmit={onLocationSubmitHandler} />
         <hr />
-        <LocationList savedLocs={savedLocations} />
+        <LocationList
+          savedLocs={savedLocations}
+          onLocationSubmit={onLocationSubmitHandler}
+        />
       </aside>
     </>
   );
