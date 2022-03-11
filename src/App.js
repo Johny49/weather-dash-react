@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+// Components
 import Header from "./Components/Header/Header";
 import WeatherContainer from "./Components/WeatherContainer/WeatherContainer";
 import LocationSidebar from "./Components/LocationSidebar/LocationSidebar";
@@ -13,8 +14,7 @@ function App() {
       sunset: "",
       temp: "",
       feels_like: "",
-      pressure: "",
-      humidity: 0,
+      humidity: "",
       dew_point: "",
       uvi: "",
       wind_speed: "",
@@ -62,7 +62,11 @@ function App() {
   }, []);
 
   const getWeatherData = async (lat, lon) => {
-    let unitType = localStorage.getItem("saved-units" || "imperial");
+    let unitType = "";
+    if (JSON.parse(localStorage.getItem("saved-units"))) {
+      unitType = JSON.parse(localStorage.getItem("saved-units"));
+    } else unitType = "imperial";
+
     let apiUrl =
       "https://api.openweathermap.org/data/2.5/onecall?lat=" +
       lat +
@@ -91,7 +95,7 @@ function App() {
     <div className="App">
       <Header />
       <div className="container-fluid">
-        <div className="row py-4">
+        <div className="row">
           <LocationSidebar updateLocation={fetchLocationHandler} />
           <WeatherContainer weatherData={weatherData} location={returnedLoc} />
         </div>

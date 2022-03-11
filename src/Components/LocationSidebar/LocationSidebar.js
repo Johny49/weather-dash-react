@@ -29,7 +29,7 @@ const LocationSidebar = (props) => {
     <>
       <aside className="col-sm-12 col-lg-2 p-3 bg-light">
         <LocationSearchForm onLocationSubmit={onLocationSubmitHandler} />
-        {/* TODO: Replace with mapped list of saved locations */}
+        <hr />
         <LocationList savedLocs={savedLocations} />
       </aside>
     </>

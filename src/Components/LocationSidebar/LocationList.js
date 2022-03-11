@@ -6,7 +6,9 @@ const LocationList = (props) => {
   return (
     <ListGroup className="my-5">
       {mapList.map((loc) => (
-        <ListGroup.Item key={loc}>{loc}</ListGroup.Item>
+        <ListGroup.Item key={loc} className="btn bg-secondary text-light my-1">
+          {loc}
+        </ListGroup.Item>
       ))}
     </ListGroup>
   );

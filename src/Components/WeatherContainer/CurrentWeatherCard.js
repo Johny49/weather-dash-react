@@ -1,12 +1,19 @@
+// Components
 import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
-import configDate from "../../Utils/DateConvert";
+// Utils
+import toTitleCase from "../../Utils/ToTitleCase";
+import roundNumber from "../../Utils/RoundNumber";
+import setUVIColor from "../../Utils/UvIndexColor";
+import { configTime } from "../../Utils/DateConvert";
+// Image
+import placeholder from "../../Assets/placeholder.png";
+import degreesToDirection from "../../Utils/WindDirectionConverter";
 
 const CurrentWeatherCard = (props) => {
   let current = props.weatherData.current;
-  let displayDate = configDate(current.dt);
-  let weatherIcon = ""; //TODO: add placeholder img
-  let iconAlt = "";
+  let weatherIcon = placeholder;
+  let iconAlt = "placeholder for current weather icon";
 
   if (current.weather[0].icon !== "") {
     weatherIcon = `https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`;
@@ -14,19 +21,36 @@ const CurrentWeatherCard = (props) => {
   }
 
   return (
-    <Card>
-      <Card.Header>
-        <Card.Title>{props.location}</Card.Title>
-        <Card.Title>{displayDate}</Card.Title>
-        <Image fluid src={weatherIcon} alt={iconAlt} />
+    <Card className="col-12 text-light bg-primary mx-1">
+      <Card.Header className="row justify-content-center">
+        <h2 className="col-5">{props.location}</h2>
+        <div>
+          <Image width="116" height="116" src={weatherIcon} alt={iconAlt} />
+        </div>
       </Card.Header>
       <Card.Body>
-        <Card.Subtitle>Temp: {Math.round(current.temp)}</Card.Subtitle>
-        <Card.Subtitle>Feels Like: {current.feelsLike}</Card.Subtitle>
-        <Card.Subtitle>Wind: {current.wind_speed}</Card.Subtitle>
-        <Card.Subtitle>Humidity: {current.humidity}</Card.Subtitle>
-        <Card.Subtitle>UV: {current.uvi}</Card.Subtitle>
-        <Card.Text>{current.weather[0].description}</Card.Text>
+        <h3>{toTitleCase(current.weather[0].description)}</h3>
+        <div className="row justify-content-md-around mx-3">
+          <div className="col-sm-12 col-md-5 m-1">
+            <h3 className="row">Temp: {roundNumber(current.temp)}</h3>
+            <h3 className="row">
+              Feels Like: {roundNumber(current.feels_like)}
+            </h3>
+            <h3 className="row">
+              Wind: {degreesToDirection(current.wind_deg)}{" "}
+              {roundNumber(current.wind_speed)}
+            </h3>
+            <h3 className={`row p-2 rounded-1 ${setUVIColor(current.uvi)}`}>
+              UV: {current.uvi}
+            </h3>
+          </div>
+          <div className="col-sm-12 col-md-5 m-1">
+            <h3 className="row">Sunrise: {configTime(current.sunrise)}</h3>
+            <h3 className="row">Sunset: {configTime(current.sunset)}</h3>
+            <h3 className="row">Humidity: {current.humidity}</h3>
+            <h3 className="row">Dew Point: {roundNumber(current.dew_point)}</h3>
+          </div>
+        </div>
       </Card.Body>
     </Card>
   );

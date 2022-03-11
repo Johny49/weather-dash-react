@@ -1,39 +1,36 @@
-import { useState } from "react";
+// Components
 import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
+// Utils
+import roundNumber from "../../Utils/RoundNumber";
+import { configDate } from "../../Utils/DateConvert";
+// Image
+import placeholder from "../../Assets/placeholder.png";
 
 const ForecastCard = (props) => {
-  // const weatherData = props.weatherData;
-  const [currentWeather, setCurrentWeather] = useState({
-    loc: "",
-    temp: "",
-    wind: "",
-    humidity: "",
-    uvi: "",
-    icon_info: "", //todo add placeholder?
-  });
-  //   const currentWeather = {
-  //     loc: props.location,
-  //     temp: Math.round(props.weatherData.current.temp),
-  //     wind: props.weatherData.current.wind_speed,
-  //     humidity: props.weatherData.current.humidity,
-  //     uvi: props.weatherData.current.uvi,
-  //     icon_info: props.weatherData.current.weather,
-  //   };
+  let forecast = props.forecast;
+  let displayDate = configDate(forecast.dt);
+  let weatherIcon = placeholder;
+  let iconAlt = "";
+
+  if (forecast.weather[0].icon !== "") {
+    weatherIcon = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`;
+    iconAlt = forecast.weather[0].description;
+  }
+
   return (
-    <Card border="primary" className="flex-col">
+    <Card
+      border="primary"
+      className="col-sm-6 col-md-4 col-lg-2 text-light bg-primary m-1 card border-primary"
+    >
       <Card.Header>
-        <Card.Title>Date</Card.Title>
-        <Image
-          fluid
-          src="https://openweathermap.org/img/wn/10d@2x.png"
-          alt={"description of icon"}
-        />
+        <Card.Title>{displayDate}</Card.Title>
+        <Image fluid src={weatherIcon} alt={iconAlt} />
       </Card.Header>
       <Card.Body>
-        <Card.Subtitle>Low:</Card.Subtitle>
-        <Card.Subtitle>High:</Card.Subtitle>
-        <Card.Subtitle>Wind: </Card.Subtitle>
+        <Card.Subtitle>Low: {roundNumber(forecast.temp.min)}</Card.Subtitle>
+        <Card.Subtitle>High: {roundNumber(forecast.temp.max)}</Card.Subtitle>
+        <Card.Subtitle>Wind: {forecast.wind_speed}</Card.Subtitle>
         <Card.Subtitle></Card.Subtitle>
       </Card.Body>
     </Card>
