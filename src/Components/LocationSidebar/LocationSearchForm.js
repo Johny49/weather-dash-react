@@ -1,15 +1,14 @@
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import toTitleCase from "../../Utils/ToTitleCase";
 const LocationSearchForm = (props) => {
   const [enteredLocation, setEnteredLocation] = useState("");
 
   const locationChangeHandler = (e) => {
     if (e.target.value.trim() !== "") {
-      setEnteredLocation(e.target.value.trim());
-    } else {
-      //TODO: handle names with spaces and return feedback whenv val === ""
+      let formatted = toTitleCase(e.target.value.trim());
+      setEnteredLocation(formatted);
     }
   };
 
@@ -23,6 +22,7 @@ const LocationSearchForm = (props) => {
       alert("Please Enter a Location"); //TODO: rework to display without alert
     }
   };
+
   return (
     <Form onSubmit={submitHandler}>
       <Form.Control
