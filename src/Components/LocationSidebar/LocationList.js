@@ -47,8 +47,10 @@ const LocationList = (props) => {
       <ListGroup className="my-5">
         {mapList.map((loc) => (
           <ListGroup.Item
+            action
             key={loc}
             className="btn bg-secondary text-light my-1"
+            onClick={() => handleSelectLocation(loc)}
           >
             {loc}
           </ListGroup.Item>

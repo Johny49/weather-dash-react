@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // Components
 import LocationList from "./LocationList";
 import LocationSearchForm from "./LocationSearchForm";
-import "./LocationSidebar.css";
 
 const LocationSidebar = (props) => {
   const [savedLocations, setSavedLocations] = useState(
     JSON.parse(localStorage.getItem("saved-locations")) || []
   );
+
+  // save locations to localStorage on update
+  useEffect(() => {
+    localStorage.setItem("saved-locations", JSON.stringify(savedLocations));
+  }, [savedLocations]);
 
   const updateSavedLocations = (loc) => {
     // check for duplicate and add location if unique; if exists already, move to top of list
@@ -15,12 +19,13 @@ const LocationSidebar = (props) => {
       const index = savedLocations.indexOf(loc);
       savedLocations.unshift(savedLocations.splice(index, 1));
     } else {
-      savedLocations.unshift(loc);
+      setSavedLocations((prevSavedLocations) => {
+        return [loc, ...savedLocations];
+      });
     }
-    // save to localStorage
-    localStorage.setItem("saved-locations", JSON.stringify(savedLocations));
   };
 
+  // submit query using saved location
   const onLocationSubmitHandler = (enteredLocation) => {
     props.updateLocation(enteredLocation);
     updateSavedLocations(enteredLocation);

@@ -8,6 +8,7 @@ import toTitleCase from "../../Utils/ToTitleCase";
 const LocationSearchForm = (props) => {
   const [enteredLocation, setEnteredLocation] = useState("");
 
+  // validate and set location
   const locationChangeHandler = (e) => {
     if (e.target.value.trim() !== "") {
       let formatted = toTitleCase(e.target.value.trim());
@@ -15,6 +16,7 @@ const LocationSearchForm = (props) => {
     }
   };
 
+  // pass location for query
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -31,7 +33,7 @@ const LocationSearchForm = (props) => {
       <Form.Control
         className="my-3"
         type="text"
-        // value={enteredLocation}
+        value={enteredLocation}
         placeholder="Location"
         onChange={locationChangeHandler}
       />
