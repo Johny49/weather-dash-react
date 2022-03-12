@@ -12,9 +12,11 @@ import degreesToDirection from "../../Utils/WindDirectionConverter";
 
 const CurrentWeatherCard = (props) => {
   let current = props.weatherData.current;
+  let timezoneOffset = props.weatherData.timezone_offset;
   let weatherIcon = placeholder;
   let iconAlt = "placeholder for current weather icon";
 
+  // replace placeholder img after weather data returned
   if (current.weather[0].icon !== "") {
     weatherIcon = `https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`;
     iconAlt = current.weather[0].description;
@@ -45,8 +47,12 @@ const CurrentWeatherCard = (props) => {
             </h3>
           </div>
           <div className="col-sm-12 col-md-5 m-1">
-            <h3 className="row">Sunrise: {configTime(current.sunrise)}</h3>
-            <h3 className="row">Sunset: {configTime(current.sunset)}</h3>
+            <h3 className="row">
+              Sunrise: {configTime(current.sunrise, timezoneOffset)}
+            </h3>
+            <h3 className="row">
+              Sunset: {configTime(current.sunset, timezoneOffset)}
+            </h3>
             <h3 className="row">Humidity: {current.humidity}</h3>
             <h3 className="row">Dew Point: {roundNumber(current.dew_point)}</h3>
           </div>

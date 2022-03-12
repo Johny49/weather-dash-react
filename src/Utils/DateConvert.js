@@ -1,29 +1,37 @@
-export const configDate = (unixTimestamp) => {
-  // use current date if passed empty value
+export const configDate = (unixTimestamp, timezoneOffset) => {
+  // use current date if passed empty value; also to calculate timezone offset
   let date = new Date();
 
   //convert Unix timestamp to js Date format and return formatted value if not ""
   if (unixTimestamp !== "") {
-    date = new Date(unixTimestamp * 1000);
+    // caclulate timezone difference to display relative to searched location, not user
+    let localOffset = date.getTimezoneOffset() * 60;
+    let timeDiff = localOffset + timezoneOffset;
+
+    date = new Date((unixTimestamp + timeDiff) * 1000);
 
     let weekdayOutput = date.toLocaleString("default", { weekday: "long" });
     let monthOutput = date.toLocaleString("default", { month: "long" });
     let dayOutput = date.getDate();
-    let yearOutput = date.getFullYear();
 
-    return `${weekdayOutput}, ${monthOutput} ${dayOutput}, ${yearOutput}`;
+    return `${weekdayOutput}, ${monthOutput} ${dayOutput}`;
   }
 };
 
-export const configTime = (unixTimestamp) => {
+export const configTime = (unixTimestamp, timezoneOffset) => {
   // use current date if passed empty value
   let date = new Date();
-  //convert Unix timestamp to js Date format if not ""
-  if (unixTimestamp !== "") {
-    date = new Date(unixTimestamp * 1000);
 
-    let hours = date.getHours().toLocaleString();
-    let minutes = date.getMinutes();
+  // caclulate timezone difference to display times relative to searched location, not user location
+  let localOffset = date.getTimezoneOffset() * 60;
+  let timeDiff = localOffset + timezoneOffset;
+
+  //convert Unix timestamp to js Date format if not "" and adjust for offset
+  if (unixTimestamp !== "") {
+    date = new Date((unixTimestamp + timeDiff) * 1000);
+
+    let hours = date.getHours();
+    let minutes = String(date.getMinutes()).padStart(2, "0");
     let amPm = "";
 
     // convert hours to 12hr format
@@ -46,6 +54,6 @@ export const configTime = (unixTimestamp) => {
         amPm = "";
     }
 
-    return `${hours}:${minutes}${amPm}`;
+    return `${hours}:${minutes} ${amPm}`;
   }
 };

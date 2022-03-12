@@ -5,6 +5,7 @@ import ForecastCard from "./ForecastCard";
 
 const WeatherContainer = (props) => {
   let forecasts = props.weatherData.daily;
+  let timezoneOffset = props.weatherData.timezone_offset;
 
   return (
     <div className="col-sm-12 col-md-10">
@@ -16,7 +17,11 @@ const WeatherContainer = (props) => {
       <h2>Forecast:</h2>
       <CardGroup className="row flex-row justify-content-center p-2">
         {forecasts.map((forecast) => (
-          <ForecastCard key={forecast.dt} forecast={forecast} />
+          <ForecastCard
+            key={forecast.dt}
+            forecast={forecast}
+            timezoneOffset={timezoneOffset}
+          />
         ))}
       </CardGroup>
     </div>

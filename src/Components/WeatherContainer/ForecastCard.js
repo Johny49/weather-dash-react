@@ -9,7 +9,7 @@ import placeholder from "../../Assets/placeholder.png";
 
 const ForecastCard = (props) => {
   let forecast = props.forecast;
-  let displayDate = configDate(forecast.dt);
+  let displayDate = configDate(forecast.dt, props.timezoneOffset);
   let weatherIcon = placeholder;
   let iconAlt = "";
 
