@@ -31,6 +31,7 @@ function App() {
     daily: [],
   });
 
+  // query for lat and lon coordinates using location
   const fetchLocationHandler = useCallback(async (enteredLocation) => {
     let apiUrl =
       "https://api.openweathermap.org/geo/1.0/direct?q=" +
@@ -61,6 +62,7 @@ function App() {
     }
   }, []);
 
+  // query to retrieve weather data for given location
   const getWeatherData = async (lat, lon) => {
     let unitType = "";
     if (JSON.parse(localStorage.getItem("saved-units"))) {

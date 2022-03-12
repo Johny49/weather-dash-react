@@ -1,4 +1,5 @@
 import CardGroup from "react-bootstrap/CardGroup";
+// Components
 import CurrentWeatherCard from "./CurrentWeatherCard";
 import ForecastCard from "./ForecastCard";
 
