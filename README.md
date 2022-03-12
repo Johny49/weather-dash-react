@@ -29,17 +29,17 @@ You may also see any lint errors in the console.
 
 ## Screenshot
 
-![Screenshot of portfolio webpage](./assets/images/readme-screenshot.png)
+![Screenshot of portfolio webpage](./assets/readme-screenshot.png)
 
 ## Link
 
-[Weather Dash React](https://johny49.github.io/) **Update at finish**  
+[Weather Dash React](https://johny49.github.io/weather-dash-react)  
 Standard, non-React version
 [available here.](https://johny49.github.io/weather-dashboard/)
 
 ## Code
 
-[GitHub Code Repository](https://github.com/Johny49/)  
+[GitHub Code Repository](https://github.com/Johny49/weather-dash-react)  
 Standard, non-React version
 [available here.](https://github.com/Johny49/weather-dashboard)
 
@@ -56,4 +56,4 @@ Created by [@johny49](https://github.com/Johny49/) - feel free to contact me!
 
 ## Project Status
 
-Project is: in development.
+Project is: completed and functioning with possible future improvements.
