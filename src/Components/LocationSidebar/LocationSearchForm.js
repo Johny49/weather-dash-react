@@ -8,20 +8,19 @@ import toTitleCase from "../../Utils/ToTitleCase";
 const LocationSearchForm = (props) => {
   const [enteredLocation, setEnteredLocation] = useState("");
 
-  // validate and set location
+  // update stored location from input
   const locationChangeHandler = (e) => {
-    if (e.target.value.trim() !== "") {
-      let formatted = toTitleCase(e.target.value.trim());
-      setEnteredLocation(formatted);
-    }
+    setEnteredLocation(e.target.value);
   };
 
-  // pass location for query
+  // validate, format, and pass location for query
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (enteredLocation !== "") {
-      props.onLocationSubmit(enteredLocation);
+    let formatted = toTitleCase(enteredLocation.trim());
+
+    if (formatted !== "") {
+      props.onLocationSubmit(formatted);
       setEnteredLocation("");
     } else {
       alert("Please Enter a Location");
