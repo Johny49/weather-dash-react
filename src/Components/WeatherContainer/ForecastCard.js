@@ -30,7 +30,7 @@ const ForecastCard = (props) => {
       <Card.Body>
         <Card.Subtitle>Low: {roundNumber(forecast.temp.min)}</Card.Subtitle>
         <Card.Subtitle>High: {roundNumber(forecast.temp.max)}</Card.Subtitle>
-        <Card.Subtitle>Wind: {forecast.wind_speed}</Card.Subtitle>
+        <Card.Subtitle>Wind: {roundNumber(forecast.wind_speed)}</Card.Subtitle>
         <Card.Subtitle></Card.Subtitle>
       </Card.Body>
     </Card>
