@@ -22,7 +22,7 @@ const ForecastCard = (props) => {
   return (
     <Card
       border="primary"
-      className="col-sm-6 col-md-4 col-lg-2 text-light bg-primary m-1 card border-primary"
+      className="col-sm-6 col-md-5 col-lg-3 text-light bg-primary m-1 card border-primary"
     >
       <Card.Header>
         <Card.Title>{displayDate}</Card.Title>
