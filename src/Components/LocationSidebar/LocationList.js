@@ -7,7 +7,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 const LocationList = (props) => {
   const { width } = useViewport();
-  const breakpoint = 768;
+  const breakpoint = 992;
 
   // reverse list of saved locations to display newest first
   const mapList = props.savedLocs.reverse();

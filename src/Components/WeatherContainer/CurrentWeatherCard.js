@@ -5,10 +5,10 @@ import Image from "react-bootstrap/Image";
 import toTitleCase from "../../Utils/ToTitleCase";
 import roundNumber from "../../Utils/RoundNumber";
 import setUVIColor from "../../Utils/UvIndexColor";
+import degreesToDirection from "../../Utils/WindDirectionConverter";
 import { configTime } from "../../Utils/DateConvert";
 // Image
 import placeholder from "../../Assets/placeholder.png";
-import degreesToDirection from "../../Utils/WindDirectionConverter";
 
 const CurrentWeatherCard = (props) => {
   let current = props.weatherData.current;

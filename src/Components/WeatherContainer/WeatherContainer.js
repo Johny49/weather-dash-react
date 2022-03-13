@@ -15,7 +15,7 @@ const WeatherContainer = (props) => {
         location={props.location}
       />
       <h2>Forecast:</h2>
-      <CardGroup className="row flex-row justify-content-center p-2">
+      <section className="row justify-content-center p-2">
         {forecasts.map((forecast) => (
           <ForecastCard
             key={forecast.dt}
@@ -23,7 +23,7 @@ const WeatherContainer = (props) => {
             timezoneOffset={timezoneOffset}
           />
         ))}
-      </CardGroup>
+      </section>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
 // Utils
 import roundNumber from "../../Utils/RoundNumber";
+import degreesToDirection from "../../Utils/WindDirectionConverter";
 import { configDate } from "../../Utils/DateConvert";
 // Image
 import placeholder from "../../Assets/placeholder.png";
@@ -28,9 +29,16 @@ const ForecastCard = (props) => {
         <Image fluid src={weatherIcon} alt={iconAlt} />
       </Card.Header>
       <Card.Body>
-        <Card.Subtitle>Low: {roundNumber(forecast.temp.min)}</Card.Subtitle>
-        <Card.Subtitle>High: {roundNumber(forecast.temp.max)}</Card.Subtitle>
-        <Card.Subtitle>Wind: {roundNumber(forecast.wind_speed)}</Card.Subtitle>
+        <Card.Subtitle className="py-1">
+          Low: {roundNumber(forecast.temp.min)}
+        </Card.Subtitle>
+        <Card.Subtitle className="py-1">
+          High: {roundNumber(forecast.temp.max)}
+        </Card.Subtitle>
+        <Card.Subtitle className="py-1">
+          Wind: {degreesToDirection(forecast.wind_deg)}{" "}
+          {roundNumber(forecast.wind_speed)}
+        </Card.Subtitle>
         <Card.Subtitle></Card.Subtitle>
       </Card.Body>
     </Card>
